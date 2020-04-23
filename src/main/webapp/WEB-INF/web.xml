@@ -1,8 +1,8 @@
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
     <!--符合web排序规范才不会报错-->
     <display-name>myssm</display-name>
     <!-- Spring 配置-->
@@ -25,7 +25,6 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-
     <!-- 经常需要排除一些不必要的url，比如.js,/jslib/等等。配置在init-param中。比如 -->
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>
@@ -35,7 +34,18 @@
             <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
         </init-param>
     </filter>
-<!--all filter-->
+    <!-- 配置由Spring提供的过滤器，用于整合shiro框架 -->
+    <!-- 在项目启动的过程中，当前过滤器会从Spring工厂中提取同名对象 -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>

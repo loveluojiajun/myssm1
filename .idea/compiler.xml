@@ -9,5 +9,8 @@
         <module name="myssm" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ssm00" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
